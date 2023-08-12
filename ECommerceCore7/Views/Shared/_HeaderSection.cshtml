@@ -1,0 +1,64 @@
+﻿<!-- ...:::: Start Header Section:::... -->
+<header class="header-section d-lg-block d-none">
+    <div class="header-center">
+        <div class="container">
+            <div class="row d-flex justify-content-between align-items-center">
+                <div class="col-3">
+                    <!-- Logo Header -->
+                    <div class="header-logo">
+                        <a asp-action="Index" asp-controller="Home" asp-area="">
+                            <img src="@SiteGeneralSettings.GetSettings().LogoFilePath" alt="" asp-append-version="true">
+                        </a>
+                    </div>
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="col-3 text-right">
+                        <!-- Start Header Action Icon -->
+                        <ul class="header-action-icon">
+                            <li>
+                                <a asp-action="Wishlist" asp-controller="Home" asp-area="">
+                                    <i class="icon-heart"></i>
+                                    <span class="header-action-icon-item-count" id="wishlist_count">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-action="Cart" asp-controller="Home" asp-area="">
+                                    <i class="icon-shopping-cart"></i>
+                                    <span class="header-action-icon-item-count" id="total_items_in_cart">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- End Header Action Icon -->
+                    </div>
+                }
+            </div>
+        </div>
+    </div> <!-- End Header Center Area -->
+    <!-- Start Bottom Area -->
+    <div class="header-bottom sticky-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Header Main Menu -->
+                    <div class="main-menu">
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a asp-action="Index" asp-controller="Home" asp-area="">صفحه اصلی</a>
+                                </li>
+                                @(await Component.InvokeAsync("ProductGroupsMenu"))
+                                @(await Component.InvokeAsync("PageGroupsMenu"))
+                                @(await Component.InvokeAsync("StaticPagesMenu"))
+                                <partial name="_LoginPartial_Theme" />
+                            </ul>
+                        </nav>
+                    </div> 
+                    <!-- Header Main Menu Start -->
+                </div>
+            </div>
+        </div>
+    </div> 
+    <!-- End Bottom Area -->
+</header> 
+<!-- ...:::: End Header Section:::... -->

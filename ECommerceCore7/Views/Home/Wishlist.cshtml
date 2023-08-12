@@ -1,0 +1,73 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Wishlist>
+@{
+    int rowCounter = 0;
+}
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                    <h3 class="breadcrumb-title">لیست علاقه مندی ها</h3>
+                    <div class="breadcrumb-nav">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a asp-action="Index">صفحه اصلی</a></li>
+                                @*<li><a href="shop-grid-sidebar-left.html">Shop</a></li>*@
+                                <li class="active" aria-current="page">لیست علاقه مندی ها</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...:::: End Breadcrumb Section:::... -->
+<!-- ...:::: Start Cart Section:::... -->
+<div class="cart-section">
+    <!-- Start Cart Table -->
+    <div class="cart-table-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="table_page table-responsive">
+                            <table>
+                                <!-- Start Cart Table Head -->
+                                <thead>
+                                <tr>
+                                    <th class="product_thumb">ردیف</th>
+                                    <th class="product_name">نام کالا</th>
+                                    <th class="product-price">قیمت</th>
+                                    <th class="product-price">تاریخ افزودن</th>
+                                    <th class="product_remove">حذف</th>
+                                </tr>
+                                </thead>
+                                <!-- End Cart Table Head -->
+                                <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    rowCounter++;
+                                    <!-- Start Cart Single Item-->
+                                    <tr>
+                                        <td class="product-price">@rowCounter</td>
+                                        <td class="product_name"><a asp-controller="Home" asp-action="Product" asp-route-id="@item.ProductID" target="_blank">@item.Product.ProductTitle</a></td>
+                                        <td class="product-price">@item.Product.ProductPrice.ToString("#,0 ریال")</td>
+                                        <td class="product-price">@item.AddedToListDate.ToString("yyyy/MM/dd")</td>
+                                        <td class="product_remove"><a asp-controller="Home" asp-action="RemoveProductFromWishlist" asp-route-ProductID="@item.ProductID"><i class="fa fa-trash-o"></i></a></td>
+
+                                    </tr>
+                                    <!-- End Cart Single Item-->
+                                }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart Table -->
+</div>

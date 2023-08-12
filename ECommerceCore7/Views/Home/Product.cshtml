@@ -1,0 +1,452 @@
+﻿@using ECommerceCore7.Models.Entities
+@model Product
+
+@{
+    ViewData["Title"] = Model.ProductTitle;
+
+    string description = string.Empty;
+    if (string.IsNullOrEmpty(Model.ProductMetaDescription))
+    {
+        description = Model.ProductShortDescription;
+    }
+    else
+    {
+        description = Model.ProductMetaDescription;
+    }
+
+    Html.SetSeoInfo(seoInfo =>
+    {
+        seoInfo.SetCommonInfo(
+            pageTitle: Model.ProductTitle,
+            description: Model.ProductMetaDescription ?? Model.ProductShortDescription,
+            url: Url.AbsoluteAction("Product", "Home", new { id = Model.ProductID }),
+            /*keywordTags: Model.ProductMetaTags?.Split(new[] { ',', '،' }).ToArray()*/ //optional
+            keywordTags: Model.ProductTags?.Select(pt => pt.Tag.TagTitle).ToList()
+            );
+        if (Model.ProductImages.Any())
+        {
+            var image = Model.ProductImages.FirstOrDefault();
+            seoInfo.SetImageInfo(
+                url: $"/Uploads/Images/Products/{image.ProductImageFilename}",
+                //width: 1280,  //optional
+                //height: 720,  //optional
+                alt: Model.ProductTitle, //optional
+                //mimeType: "image/jpeg", //optional (detects from url file extension if not set.)
+                cardType: SeoTags.TwitterCardType.SummaryLargeImage //optional
+            );
+        }
+    });
+}
+<input type="hidden" id="ProductID" value="@Model.ProductID" />
+<!-- Start Product Details Section -->
+<div class="product-details-section section-top-gap-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="product-details-gallery-area">
+                    <div class="product-large-image product-large-image-horaizontal">
+                        @if (Model.ProductImages.Any())
+                        {
+                            @foreach (var image in Model.ProductImages)
+                            {
+                                <div class="product-image-large-single zoom-image-hover">
+                                    <img src="~/Uploads/Images/Products/@image.ProductImageFilename" alt="">
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="product-image-large-single zoom-image-hover">
+                                <img src="~/aments/images/products_images/aments_products_large_image_1.jpg" alt="">
+                            </div>
+                        }
+
+                    </div>
+                    <div class="product-image-thumb product-image-thumb-horizontal pos-relative">
+                        @foreach (var image in Model.ProductImages)
+                        {
+                            <div class="zoom-active product-image-thumb-single">
+                                <img class="img-fluid" src="~/Uploads/Images/Products/@image.ProductImageFilename" alt="">
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="product-details-content-area">
+                    <!-- Start  Product Details Text Area-->
+                    <div class="product-details-text">
+                        <h4 class="title">@Model.ProductTitle</h4>
+                        <div class="d-flex align-items-center">
+                            @*<div class="product-review">
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-empty"><i class="fa fa-star"></i></span>
+                            </div>
+                            <a href="" class="customer-review">(نظرات مشتریان )</a>*@
+                        </div>
+                        <div class="price">@Model.ProductPrice.ToString("#,0 ریال")</div>
+                        <p>@Model.ProductShortDescription</p>
+                    </div> <!-- End  Product Details Text Area-->
+                    <!-- Start Product Variable Area -->
+                    <div class="product-details-variable">
+                        @*<h4 class="title">Available Options</h4>
+                        <!-- Product Variable Single Item -->
+                        <div class="variable-single-item">
+                        <span>Color</span>
+                        <div class="product-variable-color">
+                        <label for="product-color-red">
+                        <input name="product-color" id="product-color-red" class="color-select" type="radio" checked>
+                        <span class="product-color-red"></span>
+                        </label>
+                        <label for="product-color-tomato">
+                        <input name="product-color" id="product-color-tomato" class="color-select" type="radio">
+                        <span class="product-color-tomato"></span>
+                        </label>
+                        <label for="product-color-green">
+                        <input name="product-color" id="product-color-green" class="color-select" type="radio">
+                        <span class="product-color-green"></span>
+                        </label>
+                        <label for="product-color-light-green">
+                        <input name="product-color" id="product-color-light-green" class="color-select" type="radio">
+                        <span class="product-color-light-green"></span>
+                        </label>
+                        <label for="product-color-blue">
+                        <input name="product-color" id="product-color-blue" class="color-select" type="radio">
+                        <span class="product-color-blue"></span>
+                        </label>
+                        <label for="product-color-light-blue">
+                        <input name="product-color" id="product-color-light-blue" class="color-select" type="radio">
+                        <span class="product-color-light-blue"></span>
+                        </label>
+                        </div>
+                        </div>
+                        <!-- Product Variable Single Item -->*@
+                        <div class="d-flex align-items-center">
+                            <div class="variable-single-item ">
+                                <span>تعداد</span>
+                                <div class="product-variable-quantity">
+                                    <input min="1" max="100" value="1" type="number" id="ProductCount">
+                                </div>
+                            </div>
+
+                            <div class="product-add-to-cart-btn">
+                                @*<a href="#" data-toggle="modal" data-target="#modalAddcart">افزودن به سبد خرید</a>*@
+                                <a href="#" id="AddToCart">افزودن به سبد خرید</a>
+                                @*<button id="AddToCart">افزودن به سبد خرید</button>*@
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Product Variable Area -->
+                    <!-- Start  Product Details Meta Area-->
+                    <div class="product-details-meta mb-20">
+                        <ul>
+                            <li>
+                                <a href="#" id="addToWishlist">
+                                    <i class="icon-heart"></i>افزودن به علاقه مندی ها
+                                </a>
+                            </li>
+                        </ul>
+                    </div> <!-- End  Product Details Meta Area-->
+                    <!-- Start  Product Details Social Area-->
+                    @*<div class="product-details-social">
+                    <ul>
+                    <li><a href="#" class="facebook"><i class="fa fa-facebook"></i>Like</a></li>
+                    <li><a href="#" class="twitter"><i class="fa fa-twitter"></i>Tweet</a></li>
+                    <li><a href="#" class="pinterest"><i class="fa fa-pinterest"></i>Save</a></li>
+                    <li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i>Save</a></li>
+                    <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i>Linked</a></li>
+                    </ul>
+                    </div> *@
+                    <!-- End  Product Details Social Area-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Product Details Section -->
+<!-- Start Product Content Tab Section -->
+<div class="product-details-content-tab-section section-inner-bg section-top-gap-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product-details-content-tab-wrapper">
+                    <!-- Start Product Details Tab Button -->
+                    <ul class="nav tablist product-details-content-tab-btn d-flex justify-content-center">
+                        <li>
+                            <a class="nav-link active" data-toggle="tab" href="#description">
+                                <h5>توضیحات کامل</h5>
+                            </a>
+                        </li>
+                        @* <li>
+                        <a class="nav-link" data-toggle="tab" href="#specification">
+                        <h5>Specification</h5>
+                        </a>
+                        </li>
+                        <li>
+                        <a class="nav-link" data-toggle="tab" href="#review">
+                        <h5>Reviews (1)</h5>
+                        </a>
+                        </li>*@
+                    </ul> <!-- End Product Details Tab Button -->
+                    <!-- Start Product Details Tab Content -->
+                    <div class="product-details-content-tab">
+                        <div class="tab-content">
+                            <!-- Start Product Details Tab Content Singel -->
+                            <div class="tab-pane active show" id="description">
+                                <div class="single-tab-content-item">
+                                    <p>@Model.ProductLongDescription</p>
+
+                                </div>
+                            </div>
+                            <!-- End Product Details Tab Content Singel -->
+                            <!-- Start Product Details Tab Content Singel -->
+                            @*<div class="tab-pane" id="specification">
+                            <div class="single-tab-content-item">
+                            <table class="table table-bordered mb-20">
+                            <tbody>
+                            <tr>
+                            <th scope="row">Compositions</th>
+                            <td>Polyester</td>
+                            </tr>
+                            <tr>
+                            <th scope="row">Styles</th>
+                            <td>Girly</td>
+                            <tr>
+                            <th scope="row">Properties</th>
+                            <td>Short Dress</td>
+                            </tr>
+                            </tbody>
+                            </table>
+                            <p>Fashion has been creating well-designed collections since 2010. The brand offers feminine designs delivering stylish separates and statement dresses which have since evolved into a full ready-to-wear collection in which every item is a vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful elegance and unmistakable signature style. All the beautiful pieces are made in Italy and manufactured with the greatest attention. Now Fashion extends to a range of accessories including shoes, hats, belts and more!</p>
+                            </div>
+                            </div> *@
+                            <!-- End Product Details Tab Content Singel -->
+                            <!-- Start Product Details Tab Content Singel -->
+                            @*<div class="tab-pane" id="review">
+                            <div class="single-tab-content-item">
+                            <!-- Start - Review Comment -->
+                            <ul class="comment">
+                            <!-- Start - Review Comment list-->
+                            <li class="comment-list">
+                            <div class="comment-wrapper">
+                            <div class="comment-img">
+                            <img src="assets/images/user/image-1.png" alt="">
+                            </div>
+                            <div class="comment-content">
+                            <div class="comment-content-top">
+                            <div class="comment-content-left">
+                            <h6 class="comment-name">Kaedyn Fraser</h6>
+                            <div class="product-review">
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-empty"><i class="fa fa-star"></i></span>
+                            </div>
+                            </div>
+                            <div class="comment-content-right">
+                            <a href="#"><i class="fa fa-reply"></i>Reply</a>
+                            </div>
+                            </div>
+
+                            <div class="para-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
+                            </div>
+                            </div>
+                            </div>
+                            <!-- Start - Review Comment Reply-->
+                            <ul class="comment-reply">
+                            <li class="comment-reply-list">
+                            <div class="comment-wrapper">
+                            <div class="comment-img">
+                            <img src="assets/images/user/image-2.png" alt="">
+                            </div>
+                            <div class="comment-content">
+                            <div class="comment-content-top">
+                            <div class="comment-content-left">
+                            <h6 class="comment-name">Oaklee Odom</h6>
+                            </div>
+                            <div class="comment-content-right">
+                            <a href="#"><i class="fa fa-reply"></i>Reply</a>
+                            </div>
+                            </div>
+
+                            <div class="para-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
+                            </div>
+                            </div>
+                            </div>
+                            </li>
+                            </ul> <!-- End - Review Comment Reply-->
+                            </li> <!-- End - Review Comment list-->
+                            <!-- Start - Review Comment list-->
+                            <li class="comment-list">
+                            <div class="comment-wrapper">
+                            <div class="comment-img">
+                            <img src="assets/images/user/image-3.png" alt="">
+                            </div>
+                            <div class="comment-content">
+                            <div class="comment-content-top">
+                            <div class="comment-content-left">
+                            <h6 class="comment-name">Jaydin Jones</h6>
+                            <div class="product-review">
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-fill"><i class="fa fa-star"></i></span>
+                            <span class="review-empty"><i class="fa fa-star"></i></span>
+                            </div>
+                            </div>
+                            <div class="comment-content-right">
+                            <a href="#"><i class="fa fa-reply"></i>Reply</a>
+                            </div>
+                            </div>
+
+                            <div class="para-content">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora inventore dolorem a unde modi iste odio amet, fugit fuga aliquam, voluptatem maiores animi dolor nulla magnam ea! Dignissimos aspernatur cumque nam quod sint provident modi alias culpa, inventore deserunt accusantium amet earum soluta consequatur quasi eum eius laboriosam, maiores praesentium explicabo enim dolores quaerat! Voluptas ad ullam quia odio sint sunt. Ipsam officia, saepe repellat. </p>
+                            </div>
+                            </div>
+                            </div>
+                            </li> <!-- End - Review Comment list-->
+                            </ul> <!-- End - Review Comment -->
+                            <div class="review-form">
+                            <div class="review-form-text-top">
+                            <h5>ADD A REVIEW</h5>
+                            <p>Your email address will not be published. Required fields are marked *</p>
+                            </div>
+
+                            <form action="#" method="post">
+                            <div class="row">
+                            <div class="col-md-6">
+                            <div class="default-form-box mb-20">
+                            <label for="comment-name">Your name <span>*</span></label>
+                            <input id="comment-name" type="text" placeholder="Enter your name" required>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                            <div class="default-form-box mb-20">
+                            <label for="comment-email">Your Email <span>*</span></label>
+                            <input id="comment-email" type="email" placeholder="Enter your email" required>
+                            </div>
+                            </div>
+                            <div class="col-12">
+                            <div class="default-form-box mb-20">
+                            <label for="comment-review-text">Your review <span>*</span></label>
+                            <textarea id="comment-review-text" placeholder="Write a review" required></textarea>
+                            </div>
+                            </div>
+                            <div class="col-12">
+                            <button class="form-submit-btn" type="submit">Submit</button>
+                            </div>
+                            </div>
+                            </form>
+                            </div>
+                            </div>
+                            </div> *@
+                            <!-- End Product Details Tab Content Singel -->
+                        </div>
+                    </div> <!-- End Product Details Tab Content -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Product Content Tab Section -->
+@section Scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#AddToCart').click(function () {
+                var productID = $('#ProductID').val();
+                var productCount = $('#ProductCount').val();
+                //console.clear();
+                //console.log('Product ID is: ' + ProductID);
+                //console.log('Product Count is: ' + ProductCount);
+                $.ajax({
+                    url: "/Home/AddToShoppingCart",
+                    data: { ProductID: productID, ProductCount: productCount },
+                    type: 'GET',
+                    success: function (result) {
+                        console.log('OK, Result: ' + result);
+                        refreshCart();
+
+                        Swal.fire({
+                            title: 'کالای مورد نظر به سبد خرید اضافه شد.',
+                            icon: 'success',
+                            //iconHtml: '!',
+                            confirmButtonText: 'تایید',
+                            cancelButtonText: 'انصراف',
+                            showCancelButton: false,
+                            showCloseButton: true
+                        })
+                    },
+                    error: function (result) {
+                        //console.error('خطا');
+                        Swal.fire({
+                            title: 'شما وارد حساب کاربری خود نشده اید',
+                            icon: 'warning',
+                            iconHtml: '!',
+                            confirmButtonText: 'تایید',
+                            cancelButtonText: 'انصراف',
+                            showCancelButton: false,
+                            showCloseButton: true
+                        });
+                    }
+                });
+                return false;
+            });
+            $('#addToWishlist').click(function () {
+                var productID = $('#ProductID').val();
+                console.log('addToWishlist, ProductID: ' + productID);
+
+                $.ajax({
+                    url: "/Home/AddToWishlist",
+                    data: { ProductID: productID },
+                    type: 'GET',
+                    success: function (result) {
+                        console.log('OK, Result: ' + result);
+                        if (result === true) {
+                            refreshWishlistCount();
+                            Swal.fire({
+                                text: 'کالای مورد نظر به لیست علاقه مندی ها اضافه شد.',
+                                icon: 'success',
+                                //iconHtml: '!',
+                                confirmButtonText: 'تایید',
+                                cancelButtonText: 'انصراف',
+                                showCancelButton: false,
+                                showCloseButton: true
+                            });
+                        }
+                        else {
+                            Swal.fire({
+                                text: 'کالای مورد نظر از قبل در لیست علاقه مندی ها وجود دارد.',
+                                icon: 'warning',
+                                //iconHtml: '!',
+                                confirmButtonText: 'تایید',
+                                cancelButtonText: 'انصراف',
+                                showCancelButton: false,
+                                showCloseButton: true
+                            });
+                        }
+                    },
+                    error: function (result) {
+                        //console.error('خطا');
+                        Swal.fire({
+                            title: 'شما وارد حساب کاربری خود نشده اید',
+                            icon: 'warning',
+                            iconHtml: '!',
+                            confirmButtonText: 'تایید',
+                            cancelButtonText: 'انصراف',
+                            showCancelButton: false,
+                            showCloseButton: true
+                        });
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
+}

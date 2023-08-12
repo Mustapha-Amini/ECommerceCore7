@@ -1,0 +1,35 @@
+﻿@model ECommerceCore7.Models.Entities.ProductGroup
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductGroupTitle" class="control-label"></label>
+                <input asp-for="ProductGroupTitle" class="form-control" />
+                <span asp-validation-for="ProductGroupTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductGroupImageFilename" class="control-label"></label>
+                <input id="ProductGroupImageFilenameUpload" name="ProductGroupImageFilenameUpload" class="form-control" type="file" />
+                <span asp-validation-for="ProductGroupImageFilename" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

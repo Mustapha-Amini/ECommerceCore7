@@ -1,0 +1,53 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Page>
+
+<!-- ...:::: Start Blog Feed Section:::... -->
+<div class="blog-feed-section section-top-gap-100">
+    <!-- Start Section Content -->
+    <div class="section-content-gap">
+        <div class="container">
+            <div class="row">
+                <div class="section-content">
+                    <h3 class="section-title">آخرین خبرها</h3>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Section Content -->
+    <!-- Start Blog Feed Wrapper -->
+    <div class="blog-feed-wrapper">
+        <div class="container">
+            <div class="row">
+                @foreach (var item in Model)
+                {
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <!-- Start Blog Feed Single -->
+                        <div class="blog-feed-single">
+                            <a asp-controller="Home" asp-action="Page" asp-route-id="@item.PageID" class="blog-feed-img-link">
+                                @*<img src="assets/images/blog_images/aments_blog_01.jpg" alt="" class="blog-feed-img">*@
+                                @if (!string.IsNullOrEmpty(item.PageImageFilename))
+                                {
+                                    <img src="~/Uploads/Images/Pages/@item.PageImageFilename" alt="" class="blog-feed-img">
+                                }
+                                else
+                                {
+                                    <img src="~/aments/images/blog_recent_post/blog1.jpg" alt="" class="blog-feed-img">
+                                }
+                            </a>
+                            <div class="blog-feed-content">
+                                <div class="blog-feed-post-meta">
+                                    <span>نویسنده:</span>
+                                    <span class="blog-feed-post-meta-author">@(item.User.Fullname ?? item.User.UserName)</span> -
+                                    <span class="blog-feed-post-meta-date">@item.PageLastModified.ToString("dddd d MMMM yyyy")</span>
+                                </div>
+                                <h5 class="blog-feed-link">
+                                    <a asp-controller="Home" asp-action="Page" asp-route-id="@item.PageID">@item.PageTitle</a>
+                                </h5>
+                            </div>
+                        </div><!-- End Blog Feed Single -->
+                    </div>
+                }
+            </div>
+        </div>
+    </div> <!-- End Blog Feed Wrapper -->
+</div>
+<!-- ...:::: End Blog Feed Section:::... -->

@@ -1,0 +1,34 @@
+﻿@model ECommerceCore7.Models.ViewModels.MessageViewModel
+@{
+    var messageType = Model.MessageType.ToString().ToLower();
+}
+
+<!-- ...:::: Start Error Section :::... -->
+<div class="error-section">
+    <div class="container">
+        <div class="row">
+            <div class="error_form">
+                @if(!string.IsNullOrEmpty(Model.MainTitle))
+                {
+                    <h1 class="text-@messageType">@Model.MainTitle</h1>
+                }
+                @if (!string.IsNullOrEmpty(Model.SubTitle))
+                {
+                    <h4>@Model.SubTitle</h4>
+                }
+                @if (!string.IsNullOrEmpty(Model.Message))
+                {
+                    <p>@Model.Message</p>
+                }
+                @if (!string.IsNullOrEmpty(Model.UrlToGo))
+                {
+                    <div class="row">
+                        <div class="col-10 offset-1 col-md-6 offset-md-3">
+                            <a href="@Model.UrlToGo">@Model.UrlToGoTitle</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div> <!-- ...:::: End Error Section :::... -->

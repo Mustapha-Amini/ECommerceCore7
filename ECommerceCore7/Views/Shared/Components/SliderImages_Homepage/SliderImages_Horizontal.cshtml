@@ -1,0 +1,32 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<SliderImage>
+
+<!-- ...:::: Start Hero Area Section:::... -->
+<div class="hero-area">
+    <div class="hero-area-wrapper hero-slider-dots fix-slider-dots">
+        @foreach (var item in Model)
+        {
+            <!-- Start Hero Slider Single -->
+            <div class="hero-area-single">
+                <div class="hero-area-bg">
+                    <img class="hero-img" src="~/Uploads/Images/SliderImages/@item.SlideImageFilename" alt="">
+                </div>
+                <div class="hero-content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-10 col-md-8 col-xl-6">
+                                <h5>@item.SlideImageShortTitle</h5>
+                                <h2>@item.SlideImageMainTitle</h2>
+                                <p>@item.SlideImageShortDescription</p>
+                                @*<a href="product-details-default.html" class="hero-button">Shopping Now</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Hero Slider Single -->
+        }
+
+    </div>
+</div>
+<!-- ...:::: End Hero Area Section:::... -->

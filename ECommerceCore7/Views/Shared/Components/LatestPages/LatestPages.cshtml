@@ -1,0 +1,35 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Page>
+
+<!-- Start Single Sidebar Widget -->
+<div class="sidebar-single-widget">
+    <h6 class="sidebar-title">آخرین مطالب</h6>
+    <div class="sidebar-content">
+        <div class="recent-post">
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <!-- Start Single Recent Post Item -->
+                    <li class="recent-post-list">
+                        <a asp-controller="Home" asp-action="Page" asp-route-id="@item.PageID" class="post-image">
+                            @if(!string.IsNullOrEmpty(item.PageImageFilename))
+                            {
+                                <img src="~/Uploads/Images/Pages/@item.PageImageFilename" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/aments/images/blog_recent_post/blog1.jpg" alt="">
+                            }
+                        </a>
+                        <div class="post-content">
+                            <a class="post-link" asp-controller="Home" asp-action="Page" asp-route-id="@item.PageID">@item.PageTitle</a>
+                            <span class="post-date">@item.PageLastModified.ToString("dddd d MMMM yyyy")</span>
+                        </div>
+                    </li>
+                    <!-- End Single Recent Post Item -->
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Single Sidebar Widget -->

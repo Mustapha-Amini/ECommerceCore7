@@ -1,0 +1,115 @@
+﻿@model ECommerceCore7.Models.Entities.Page
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="PageID" />
+            <div class="form-group">
+                <label asp-for="PageGroupID" class="control-label"></label>
+                <select asp-for="PageGroupID" class="form-control" asp-items="ViewBag.PageGroupID"></select>
+                <span asp-validation-for="PageGroupID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">تگ ها</label>
+                <select id="Tags" name="Tags" class="form-control" asp-items="ViewBag.Tags" multiple></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PageTitle" class="control-label"></label>
+                <input asp-for="PageTitle" class="form-control" />
+                <span asp-validation-for="PageTitle" class="text-danger"></span>
+            </div>
+           
+            <input type="hidden" asp-for="UserID"/>
+            <div class="form-group">
+                <label asp-for="PageRoute" class="control-label"></label>
+                <input asp-for="PageRoute" class="form-control" style="direction:ltr;" />
+                <span asp-validation-for="PageRoute" class="text-danger"></span>
+            </div>
+            
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PageEnabled"/> @Html.DisplayNameFor(model => model.PageEnabled)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PageShowLinkDirectlyInTopMenu"/> @Html.DisplayNameFor(model => model.PageShowLinkDirectlyInTopMenu)
+                </label>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PageShowLinkInTopMenuInGroup"/> @Html.DisplayNameFor(model => model.PageShowLinkInTopMenuInGroup)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="PageShowLinkInFooter"/> @Html.DisplayNameFor(model => model.PageShowLinkInFooter)
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PageShortContent" class="control-label"></label>
+                <textarea asp-for="PageShortContent" class="form-control richtext"></textarea>
+                <span asp-validation-for="PageShortContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PageLongContent" class="control-label"></label>
+                <textarea asp-for="PageLongContent" class="form-control richtext"></textarea>
+                <span asp-validation-for="PageLongContent" class="text-danger"></span>
+            </div>
+            
+            <input asp-for="PageLastModified" class="form-control" type="hidden"/>
+            
+            @if(!string.IsNullOrEmpty(Model.PageImageFilename))
+            {
+                <div class="form-group">
+                    <label class="control-label">تصویر کنونی صفحه</label>
+                    @*<input asp-for="PageRoute" class="form-control" />*@
+                    <img src="~/Uploads/Images/Pages/@Model.PageImageFilename" class="form-control"/>
+                </div>
+            }
+            <div class="form-group">
+                <label asp-for="PageImageFilename" class="control-label"></label>
+                <input asp-for="PageImageFilename" class="form-control" type="hidden" />
+                <input id="PageImageFilenameUpload" name="PageImageFilenameUpload" class="form-control" type="file" />
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="PageMetaTags" class="control-label"></label>
+                <input asp-for="PageMetaTags" class="form-control" />
+                <span asp-validation-for="PageMetaTags" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PageMetaDescription" class="control-label"></label>
+                <textarea asp-for="PageMetaDescription" class="form-control"></textarea>
+                <span asp-validation-for="PageMetaDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script type="text/javascript">
+    var saveTagActionUrl = '@Url.Action("SaveTag", "Pages")';
+</script>
+<script src="~/js/page_edit_select2.js"></script>
+}

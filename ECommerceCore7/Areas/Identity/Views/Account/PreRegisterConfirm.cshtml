@@ -1,0 +1,33 @@
+﻿@model ECommerceCore7.Models.Identity.UserPreRegisterationConfirm
+
+@{
+    ViewData["Title"] = "تایید شماره موبایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3 col-sm-12 offset-sm-1" >
+        <h1>@ViewData["Title"]</h1>
+        <hr />
+        <form asp-action="PreRegisterConfirm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="AuthenticationKey"/>
+            <div class="form-group">
+                <label asp-for="AuthenticationCode" class="control-label"></label>
+                <input asp-for="AuthenticationCode" class="form-control"/>
+                <span asp-validation-for="AuthenticationCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" value="Create" class="btn btn-primary">
+                    <i class="fa-solid fa-question fa-flip-horizontal"></i> بررسی
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

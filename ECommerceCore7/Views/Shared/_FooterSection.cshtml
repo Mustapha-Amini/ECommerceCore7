@@ -1,0 +1,57 @@
+﻿<!-- ...:::: Start Footer Section:::... -->
+<footer class="footer-section section-top-gap-100">
+    <!-- Start Footer Top Area -->
+    <div class="footer-top section-inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-5">
+                    <div class="footer-widget footer-widget-contact">
+                        <div class="footer-logo">
+                            <a asp-action="Index" asp-controller="Home" asp-area="">
+                                <img src="@SiteGeneralSettings.GetSettings().LogoFilePath" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                        <div class="footer-contact">
+                            <p>
+                               @SiteGeneralSettings.GetSettings().SiteSlogan
+                            </p>
+                            <div class="customer-support">
+                                <div class="customer-support-icon">
+                                    <img src="~/Theme/images/icon/support-icon.png" alt="">
+                                </div>
+                                <div class="customer-support-text">
+                                    <span>پشتیبانی مشتریان</span>
+                                    <a class="customer-support-text-phone" href="tel:@SiteGeneralSettings.GetSettings().SupportPhoneNumber">
+                                        @SiteGeneralSettings.GetSettings().SupportPhoneNumber
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @(await Component.InvokeAsync("StaticPagesMenu", new { GenerateMenuForFooter = true}))
+
+
+                                @*<div class="col-lg-4 col-md-4 col-sm-6">
+                    <div class="footer-widget footer-widget-menu">
+                        <h3 class="footer-widget-title">اطلاعات بیشتر</h3>
+                        <div class="footer-menu">
+                            <ul class="footer-menu-nav">
+                                <li><a href="">روال سفارش و تحویل کار</a></li>
+                                <li><a href="about-us.html">درباره ما</a></li>
+                                <li><a href="contact-us.html">تماس با ما</a></li>
+                                <li><a href="">فروشگاه ساز دسته بیل</a></li>
+                            </ul>
+                            <ul class="footer-menu-nav">
+                                <li><a href="">موارد قانونی</a></li>
+                                <li><a href="">پرداخت امن</a></li>
+                                <li><a href="">نقشه سایت</a></li>
+                                <li><a href="my-account.html">حساب کاربری من</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </div> <!-- End Footer Top Area -->
+</footer> <!-- ...:::: End Footer Section:::... -->

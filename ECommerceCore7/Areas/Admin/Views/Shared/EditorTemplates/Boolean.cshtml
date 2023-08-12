@@ -1,0 +1,14 @@
+﻿@using NuGet.Protocol
+@model bool
+<!-- My Boolean-->
+@*<input type="checkbox" class="form-check-input" asp-for="@Model" />
+<label class="form-check-label" for="@Model">
+    <span class="switch-icon-left"><i data-feather="check"></i></span>
+    <span class="switch-icon-right"><i data-feather="x"></i></span>
+</label>*@
+
+
+<div class="form-check form-check-success form-switch">
+    <input type="checkbox" checked class="form-check-input" asp-for="@Model" />
+    <label class="form-check-label mb-50" asp-for="@Model"></label>
+</div>

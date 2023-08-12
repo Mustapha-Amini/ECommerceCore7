@@ -1,0 +1,45 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.ProductGroup>
+
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"] @ViewData["ControllerPluralTitle"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">افزودن</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductGroupTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductGroupImageFilename)
+                </th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductGroupTitle)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.ProductGroupImageFilename)*@
+                        <img style="width: 120px; height: 120px;" src="~/Uploads/Images/ProductGroups/@item.ProductGroupImageFilename" />
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProductGroupID" class="btn btn-secondary">ویرایش</a>
+                        <a asp-action="Details" asp-route-id="@item.ProductGroupID" class="btn btn-info">جزئیات</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductGroupID" class="btn btn-danger">حذف</a>
+                        @if (item.Products.Any())
+                        {
+                            <a asp-action="Index" asp-controller="Products" asp-route-id="@item.ProductGroupID" class="btn btn-dark" target="_blank">کالاها</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

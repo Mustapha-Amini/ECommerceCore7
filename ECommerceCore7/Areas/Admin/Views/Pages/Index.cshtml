@@ -1,0 +1,57 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.Page>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">افزودن</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageEnabled)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PageRoute)
+                </th>
+
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageGroup.PageGroupTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageTitle)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.PageEnabled)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PageRoute)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.PageID" class="btn btn-secondary">ویرایش</a>
+                        <a asp-action="Details" asp-route-id="@item.PageID" class="btn btn-info">جزئیات</a>
+                        <a asp-action="Delete" asp-route-id="@item.PageID" class="btn btn-danger">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

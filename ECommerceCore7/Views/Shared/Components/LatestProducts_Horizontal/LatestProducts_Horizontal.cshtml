@@ -1,0 +1,76 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Product>
+
+<!-- ...:::: Start Product Tab Section:::... -->
+<div class="product-tab-section section-top-gap-100">
+    <!-- Start Section Content -->
+    <div class="section-content-gap">
+        <div class="container">
+            <div class="row">
+                <div class="section-content d-flex justify-content-between align-items-md-center align-items-start flex-md-row flex-column">
+                    <h3 class="section-title">جدیدترین کالاها</h3>
+                    @*<ul class="tablist nav product-tab-btn">
+                    <li><a class="nav-link active" data-toggle="tab" href="#car_and_drive">Car & Drive </a></li>
+                    <li><a class="nav-link" data-toggle="tab" href="#motorcycle">Motorcycle</a></li>
+                    <li><a class="nav-link" data-toggle="tab" href="#truck_drive">Truck & Drive</a></li>
+                    </ul>*@
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Section Content -->
+    <!-- Start Tab Wrapper -->
+    <div class="product-tab-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="tab-content tab-animate-zoom">
+                        <div class="tab-pane show active" id="car_and_drive">
+                            <div class="product-default-slider product-default-slider-4grids-1row">
+                                <!-- Start Product Default Single -->
+                                @foreach (var item in Model)
+                                {
+                                    <div class="product-default-single border-around">
+                                        <div class="product-img-warp">
+                                            <a asp-controller="Home" asp-action="Product" asp-route-id="@item.ProductID" class="product-default-img-link">
+                                                @*<img src="~/Uploads/Images/Products/@item.ProductImages?.FirstOrDefault()?.ProductImageFilename" alt="" class="product-default-img img-fluid">*@
+                                                @{
+                                                    var productImage = item.ProductImages?.FirstOrDefault()?.ProductImageFilename;
+                                                    if (productImage != null)
+                                                    {
+                                                        <img src="~/Uploads/Images/Products/@productImage" alt="" class="product-default-img img-fluid">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="~/Uploads/Images/Products/NoImage432x432.jpg" alt="" class="product-default-img img-fluid">
+                                                    }
+                                                }
+                                            </a>
+                                            @*<div class="product-action-icon-link">
+                                        <ul>
+                                        <li><a href="wishlist.html"><i class="icon-heart"></i></a></li>
+                                        <li><a href="compare.html"><i class="icon-repeat"></i></a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#modalQuickview"><i class="icon-eye"></i></a></li>
+                                        <li><a href="#" data-toggle="modal" data-target="#modalAddcart"><i class="icon-shopping-cart"></i></a></li>
+                                        </ul>
+                                        </div>*@
+                                        </div>
+                                        <div class="product-default-content">
+                                            <h6 class="product-default-link">
+                                                <a asp-controller="Home" asp-action="Product" asp-route-id="@item.ProductID">@item.ProductTitle</a>
+                                            </h6>
+                                            <span class="product-default-price">@item.ProductPrice.ToString("#,0 ریال")</span>
+                                        </div>
+                                    </div>
+                                }
+                                <!-- End Product Default Single -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Catagory Wrapper -->
+
+</div>
+<!-- ...:::: End Product Tab Section:::... -->

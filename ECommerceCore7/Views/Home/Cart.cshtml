@@ -1,0 +1,120 @@
+﻿@using ECommerceCore7.Models.Entities
+@model Order
+
+@{
+    ViewData["Title"] = "سبد خرید";
+}
+
+<!-- ...:::: Start Breadcrumb Section:::... -->
+<div class="breadcrumb-section">
+    <div class="breadcrumb-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between justify-content-md-between  align-items-center flex-md-row flex-column">
+                    <h3 class="breadcrumb-title">سبد خرید</h3>
+                    <div class="breadcrumb-nav">
+                        <nav aria-label="breadcrumb">
+                            <ul>
+                                <li><a asp-action="Index">صفحه اصلی</a></li>
+                                @*<li><a href="shop-grid-sidebar-left.html">Shop</a></li>*@
+                                <li class="active" aria-current="page">سبد خرید</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ...:::: End Breadcrumb Section:::... -->
+<!-- ...:::: Start Cart Section:::... -->
+<div class="cart-section">
+    <!-- Start Cart Table -->
+    <div class="cart-table-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="table_page table-responsive">
+                            <table>
+                                <!-- Start Cart Table Head -->
+                                <thead>
+                                    <tr>
+                                        <th class="product_remove">حذف</th>
+                                        @*<th class="product_thumb">تصویر کالا</th>*@
+                                        <th class="product_name">نام کالا</th>
+                                        <th class="product-price">قیمت</th>
+                                        <th class="product_quantity">تعداد</th>
+                                        <th class="product_total">جمع</th>
+                                    </tr>
+                                </thead>
+                                <!-- End Cart Table Head -->
+                                <tbody>
+                                    @foreach (var item in Model.OrderDetails)
+                                    {
+                                        <!-- Start Cart Single Item-->
+                                        <tr>
+                                            <td class="product_remove"><a asp-controller="Home" asp-action="RemoveProductFromCart" asp-route-id="@item.ProductID"><i class="fa fa-trash-o"></i></a></td>
+                                            @*<td class="product_thumb"><a href="product-details-default.html"><img src="assets/images/products_images/aments_products_image_1.jpg" alt=""></a></td>*@
+                                            <td class="product_name"><a asp-controller="Home" asp-action="Product" asp-route-id="@item.ProductID" target="_blank">@item.Product.ProductTitle</a></td>
+                                            <td class="product-price">@item.Product.ProductPrice.ToString("#,0 ریال")</td>
+                                            <td class="product_quantity">@item.ProductCount</td>
+                                            <td class="product_total">@((item.ProductCount * item.Product.ProductPrice).ToString("#,0 ریال"))</td>
+                                        </tr>
+                                        <!-- End Cart Single Item-->
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Cart Table -->
+    <!-- Start Coupon Start -->
+    <div class="coupon_area">
+        <div class="container">
+            <div class="row">
+                @*<div class="col-lg-6 col-md-6">
+                <div class="coupon_code left">
+                <h3>Coupon</h3>
+                <div class="coupon_inner">
+                <p>Enter your coupon code if you have one.</p>
+                <input placeholder="Coupon code" type="text">
+                <button type="submit">Apply coupon</button>
+                </div>
+                </div>
+                </div>*@
+                <div class="col-lg-6 col-md-6">
+                    <div class="coupon_code right">
+                        <h3>خلاصه فاکتور</h3>
+                        <div class="coupon_inner">
+                            @*<div class="cart_subtotal">
+                            <p>Subtotal</p>
+                            <p class="cart_amount">$215.00</p>
+                            </div>
+                            <div class="cart_subtotal ">
+                            <p>Shipping</p>
+                            <p class="cart_amount"><span>Flat Rate:</span> $255.00</p>
+                            </div>
+                            <a href="#">Calculate shipping</a>*@
+
+                            <div class="cart_subtotal">
+                                <p>جمع کل</p>
+                                <p class="cart_amount">
+                                    @Model.OrderDetails.Select(od => (od.ProductCount * od.Product.ProductPrice)).Sum().ToString("#,0 ریال")
+                                </p>
+                            </div>
+                            <div class="checkout_btn">
+                                <a asp-action="ProcessOnlinePayment" asp-route-id="@Model.OrderID">بستن فاکتور و پرداخت</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Coupon Start -->
+</div>
+<!-- ...:::: End Cart Section:::... -->

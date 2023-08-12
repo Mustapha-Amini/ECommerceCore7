@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using ECommerceCore7.Models.Identity;
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+
+
+<li class="has-dropdown">
+    <a href="#">حساب کاربری <i class="fa fa-angle-down"></i></a>
+    <!-- Sub Menu -->
+    <ul class="sub-menu">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            if (User.IsInRole("Admin"))
+            {
+                <li>
+                    <a asp-area="Admin" asp-controller="Home" asp-action="Index" target="_blank"><span>پنل مدیریت سایت</span></a>
+                </li>
+            }
+            <li>
+                <a asp-area="Identity" asp-controller="Manage" asp-action="Index">مدیریت حساب کاربری</a>
+            </li>
+
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Orders">لیست خرید های قبلی</a>
+            </li>
+
+            <li>
+                <a asp-area="Identity" asp-controller="Manage" asp-action="ChangePassword">تغییر کلمه عبور</a>
+            </li>
+            <li>
+                <a asp-area="Identity" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">خروج از حساب کاربری</a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a asp-area="Identity" asp-action="Register" asp-controller="Account">ایجاد حساب کاربری</a>
+            </li>
+            <li>
+                <a asp-area="Identity" asp-controller="Account"  asp-action="Login">ورود به حساب کاربری</a>
+            </li>
+        }
+    </ul>
+</li>

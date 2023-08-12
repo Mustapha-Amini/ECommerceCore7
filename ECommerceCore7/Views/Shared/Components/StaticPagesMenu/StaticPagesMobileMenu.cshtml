@@ -1,0 +1,45 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Page>
+
+@{
+    var pagesToShowInMenuWithGroups = 
+        Model.Where(p => !p.PageShowLinkDirectlyInTopMenu && p.PageEnabled && p.PageShowLinkInTopMenuInGroup).ToList();
+    var pagesToShowDirectlyInMenu = 
+        Model.Where(p => p.PageShowLinkDirectlyInTopMenu && p.PageEnabled).ToList();
+}
+
+@if (pagesToShowInMenuWithGroups != null && pagesToShowInMenuWithGroups.Any())
+{
+    var groups = 
+            pagesToShowInMenuWithGroups.Select(p => p.PageGroup)
+            .DistinctBy(pg => pg.PageGroupID);
+    foreach(var group in groups)
+    {
+        <li>
+            <a href="#"><span>@group.PageGroupTitle</span></a>
+            @{
+                var pagesInThisGroup = 
+                    pagesToShowInMenuWithGroups.Where(p => p.PageGroupID == group.PageGroupID).ToList();
+            }
+            <!-- Sub Menu -->
+            <ul class="mobile-sub-menu">
+                @foreach (var currentPage in pagesInThisGroup)
+                {
+                    <li>
+                        <a href="@(Url.Content("~/")+currentPage.PageRoute)"><span>@currentPage.PageTitle</span></a>
+                    </li>
+                }
+            </ul>
+        </li>
+    }
+}
+
+@if (pagesToShowDirectlyInMenu != null && pagesToShowDirectlyInMenu.Any())
+{
+    @foreach (var currentPage in pagesToShowDirectlyInMenu)
+    {
+        <li>
+            <a href="@(Url.Content("~/")+currentPage.PageRoute)"><span>@currentPage.PageTitle</span></a>
+        </li>
+    }
+}

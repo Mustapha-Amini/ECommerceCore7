@@ -1,0 +1,75 @@
+﻿@model ECommerceCore7.Models.Entities.Product
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProductGroupID" class="control-label"></label>
+                <select asp-for="ProductGroupID" class ="form-control" asp-items="ViewBag.ProductGroupID"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">تگ ها</label>
+                <select id="Tags" name="Tags" class="form-control" asp-items="ViewBag.Tags" multiple></select>
+            </div>
+            <div class="form-group">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ProductIsActive" /> @Html.DisplayNameFor(model => model.ProductIsActive)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductTitle" class="control-label"></label>
+                <input asp-for="ProductTitle" class="form-control" />
+                <span asp-validation-for="ProductTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductShortDescription" class="control-label"></label>
+                <textarea asp-for="ProductShortDescription" class="form-control richtext"></textarea>
+                <span asp-validation-for="ProductShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductLongDescription" class="control-label"></label>
+                <textarea asp-for="ProductLongDescription" class="form-control richtext"></textarea>
+                <span asp-validation-for="ProductLongDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductPrice" class="control-label"></label>
+                <input asp-for="ProductPrice" class="form-control" />
+                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductMetaTags" class="control-label"></label>
+                <input asp-for="ProductMetaTags" class="form-control" />
+                <span asp-validation-for="ProductMetaTags" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductMetaDescription" class="control-label"></label>
+                <textarea asp-for="ProductMetaDescription" class="form-control"></textarea>
+                <span asp-validation-for="ProductMetaDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script type="text/javascript">
+        var saveTagActionUrl = '@Url.Action("SaveTag", "Pages")';
+    </script>
+    <script src="~/js/page_edit_select2.js"></script>
+}

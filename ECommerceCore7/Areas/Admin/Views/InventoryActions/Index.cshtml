@@ -1,0 +1,65 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.InventoryAction>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">افزودن کالا به انبار</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryActionDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryActionCount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InventoryActionType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Order)
+                </th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InventoryActionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InventoryActionCount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InventoryActionType.InventoryActionTypeTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Order.OrderID)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.InventoryActionID" class="btn btn-info">جزئیات</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.Order>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Fullname)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsFinalized)
+                </th>
+
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Fullname)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.OrderDate)*@
+                        @item.OrderDate.ToString("dddd d MMMM yyyy ساعت HH:mm")
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.IsFinalized)*@
+                        @(item.IsFinalized ? "فاکتور" : "پیش فاکتور")
+                    </td>
+
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.OrderID" class="btn btn-info">جزئیات</a>
+                        @*<a asp-action="Delete" asp-route-id="@item.OrderID" class="btn btn-danger">حذف</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

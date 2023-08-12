@@ -1,0 +1,28 @@
+﻿@model ECommerceCore7.Models.Entities.PageGroup
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PageGroupTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PageGroupTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PageGroupIcon)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PageGroupIcon)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.PageGroupID" class="btn btn-primary">ویرایش</a>
+    <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+</div>

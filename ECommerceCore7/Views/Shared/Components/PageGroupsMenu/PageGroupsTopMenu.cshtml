@@ -1,0 +1,17 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<PageGroup>
+
+
+<li class="has-dropdown">
+    <a href="#">گروه های صفحات <i class="fa fa-angle-down"></i></a>
+    <!-- Sub Menu -->
+    <ul class="sub-menu">
+
+        @foreach (var item in Model)
+        {
+            <li>
+                <a asp-action="PagesByGroup" asp-controller="Home" asp-area="" asp-route-id="@item.PageGroupID">@item.PageGroupTitle</a>
+            </li>
+        }
+    </ul>
+</li>

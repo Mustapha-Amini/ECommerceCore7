@@ -1,0 +1,44 @@
+﻿@model ECommerceCore7.Models.Entities.Video
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<h3>آیا از حذف این @ViewData["ControllerSingularTitle"] مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VideoType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VideoType.VideoTypeTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Product)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Product.ProductTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Page)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Page.PageTitle)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="VideoID" />
+    <button type="submit" class="btn btn-danger">حذف</button>
+        <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+    </form>
+</div>

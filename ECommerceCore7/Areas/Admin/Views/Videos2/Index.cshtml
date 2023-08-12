@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.Video>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary"><i class="fa-solid fa-circle-plus"></i> افزودن ویدئو</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VideoDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VideoType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VideoName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Product)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Page)
+                </th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VideoDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VideoType.VideoTypeTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VideoName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.ProductTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Page.PageTitle)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.VideoID" class="btn btn-secondary"><i class="fa-solid fa-pen-to-square"></i> ویرایش</a>
+                    <a asp-action="Details" asp-route-id="@item.VideoID" class="btn btn-info"><i class="fa-solid fa-eye"></i> جزئیات</a>*@
+                        <a asp-action="Delete" asp-route-id="@item.VideoID" class="btn btn-danger"><i class="fa-solid fa-trash"></i> حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

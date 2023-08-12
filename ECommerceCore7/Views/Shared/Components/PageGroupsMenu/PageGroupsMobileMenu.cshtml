@@ -1,0 +1,19 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<PageGroup>
+
+
+<li>
+    <a href="#"><span>گروه های صفحات</span></a>
+    <!-- Sub Menu -->
+    <ul class="mobile-sub-menu">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a asp-action="PagesByGroup" 
+                   asp-controller="Home" 
+                   asp-area=""
+                   asp-route-id="@item.PageGroupID"><span>@item.PageGroupTitle</span></a>
+            </li>
+        }
+    </ul>
+</li>

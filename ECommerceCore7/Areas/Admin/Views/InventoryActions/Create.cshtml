@@ -1,0 +1,69 @@
+﻿@model ECommerceCore7.Models.Entities.InventoryAction
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            @*<div class="form-group">
+                <label asp-for="InventoryActionTypeID" class="control-label"></label>
+                <select asp-for="InventoryActionTypeID" class ="form-control" asp-items="ViewBag.InventoryActionTypeID"></select>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="UserID" class="control-label"></label>
+                <select asp-for="UserID" class ="form-control" asp-items="ViewBag.UserID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="OrderID" class="control-label"></label>
+                <select asp-for="OrderID" class ="form-control" asp-items="ViewBag.OrderID"></select>
+            </div>*@
+            
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label"></label>
+                <select asp-for="ProductID" class="form-control" asp-items="ViewBag.ProductID"></select>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InventoryActionComments" class="control-label"></label>
+                <textarea asp-for="InventoryActionComments" class="form-control"></textarea>
+                <span asp-validation-for="InventoryActionComments" class="text-danger"></span>
+            </div>
+             <div class="form-group">
+                <label asp-for="InventoryActionDate" class="control-label"></label>
+                <input asp-for="InventoryActionDate" class="form-control" type="datetime"/>
+                <span asp-validation-for="InventoryActionDate" class="text-danger"></span>
+             </div>
+            <div class="form-group">
+                <label asp-for="InventoryActionCount" class="control-label"></label>
+                <input asp-for="InventoryActionCount" class="form-control" />
+                <span asp-validation-for="InventoryActionCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#ProductID').select2({
+                language: "fa",
+                dir: "rtl",
+                placeholder: "لطفا یک کالا را انتخاب کنید"
+            });
+        });
+    </script>
+}

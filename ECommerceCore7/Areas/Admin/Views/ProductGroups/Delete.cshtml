@@ -1,0 +1,32 @@
+﻿@model ECommerceCore7.Models.Entities.ProductGroup
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<h3>آیا از حذف این @ViewData["ControllerSingularTitle"] مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductGroupTitle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProductGroupTitle)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductGroupImageFilename)
+        </dt>
+        <dd class = "col-sm-10">
+            @*@Html.DisplayFor(model => model.ProductGroupImageFilename)*@
+            <img src="~/Uploads/Images/ProductGroups/@Model.ProductGroupImageFilename"/>
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ProductGroupID" />
+    <button type="submit" class="btn btn-danger">حذف</button>
+        <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+    </form>
+</div>

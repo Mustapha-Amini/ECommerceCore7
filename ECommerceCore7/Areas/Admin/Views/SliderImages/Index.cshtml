@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.SliderImage>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">افزودن</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.SlideImageMainTitle)
+                </th>
+                @*<th>
+                    @Html.DisplayNameFor(model => model.SlideImageShortTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SlideImageShortDescription)
+                </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.SlideImageFilename)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SliderImageEnabled)
+                </th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SlideImageMainTitle)
+                    </td>
+                   @* <td>
+                        @Html.DisplayFor(modelItem => item.SlideImageShortTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SlideImageShortDescription)
+                    </td>*@
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.SlideImageFilename)*@
+                        <img src="~/Uploads/Images/SliderImages/@(item.SlideImageFilename)?w=200&mode=stretch" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SliderImageEnabled)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.SliderImageID" class="btn btn-secondary t1m1">ویرایش</a>
+                        <a asp-action="Details" asp-route-id="@item.SliderImageID" class="btn btn-info t1m1">جزئیات</a>
+                        <a asp-action="Delete" asp-route-id="@item.SliderImageID" class="btn btn-danger t1m1">حذف</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

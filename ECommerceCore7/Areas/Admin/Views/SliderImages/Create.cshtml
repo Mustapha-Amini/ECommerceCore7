@@ -1,0 +1,47 @@
+﻿@model ECommerceCore7.Models.Entities.SliderImage
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SlideImageMainTitle" class="control-label"></label>
+                <input asp-for="SlideImageMainTitle" class="form-control" />
+                <span asp-validation-for="SlideImageMainTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlideImageShortTitle" class="control-label"></label>
+                <input asp-for="SlideImageShortTitle" class="form-control" />
+                <span asp-validation-for="SlideImageShortTitle" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlideImageShortDescription" class="control-label"></label>
+                <input asp-for="SlideImageShortDescription" class="form-control" />
+                <span asp-validation-for="SlideImageShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SlideImageFilename" class="control-label"></label>
+                <input id="SlideImageFilenameUpload" name="SlideImageFilenameUpload" class="form-control" type="file" />
+                @*<span asp-validation-for="SlideImageFilename" class="text-danger"></span>*@
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SliderImageEnabled" /> @Html.DisplayNameFor(model => model.SliderImageEnabled)
+                </label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

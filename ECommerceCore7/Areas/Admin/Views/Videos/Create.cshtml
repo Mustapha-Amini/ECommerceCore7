@@ -1,0 +1,77 @@
+﻿@model ECommerceCore7.Models.Entities.Video
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="VideoTypeID" class="control-label"></label>
+                <select asp-for="VideoTypeID" class ="form-control" asp-items="ViewBag.VideoTypeID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductID" class="control-label"></label>
+                <select asp-for="ProductID" class ="form-control" asp-items="ViewBag.ProductID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="PageID" class="control-label"></label>
+                <select asp-for="PageID" class ="form-control" asp-items="ViewBag.PageID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="VideoComments" class="control-label"></label>
+                <textarea asp-for="VideoComments" class="form-control"></textarea>
+                <span asp-validation-for="VideoComments" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="VideoDate" class="control-label"></label>
+                <input asp-for="VideoDate" class="form-control" type="datetime"/>
+                <span asp-validation-for="VideoDate" class="text-danger"></span>
+             </div>
+
+            <input asp-for="ProductID" class="form-control" type="hidden" />
+            <input asp-for="PageID" class="form-control" type="hidden" />
+            <div class="form-group">
+                <label asp-for="VideoName" class="control-label"></label>
+                <input id="VideoFilenameUpload" name="VideoFilenameUpload" class="form-control" type="file" />
+                <span asp-validation-for="VideoName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#ProductID').select2({
+                language: "fa",
+                dir: "rtl",
+                placeholder: "لطفا یک کالا را انتخاب کنید"
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#PageID').select2({
+                language: "fa",
+                dir: "rtl",
+                placeholder: "لطفا یک صفحه را انتخاب کنید"
+            });
+        });
+    </script>
+}

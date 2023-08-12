@@ -1,0 +1,15 @@
+﻿@model List<ProductGroup>
+@using ECommerceCore7.Models.Entities
+
+<li class="has-dropdown">
+    <a href="#">گروه های کالاها <i class="fa fa-angle-down"></i></a>
+    <!-- Sub Menu -->
+    <ul class="sub-menu">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a asp-action="ProductsByGroup" asp-controller="Home" asp-area="" asp-route-id="@item.ProductGroupID">@item.ProductGroupTitle</a>
+            </li>
+        }
+    </ul>
+</li>

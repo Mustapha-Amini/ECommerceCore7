@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.Product>
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerPluralTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+<p>
+    <a asp-action="Create" class="btn btn-primary">افزودن</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductGroup)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductTitle)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductIsActive)
+                </th>
+                <th>دستورات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductGroup.ProductGroupTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductTitle)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductIsActive)
+                    </td>
+                    <td class="t1m1">
+                        <a asp-action="Edit" asp-route-id="@item.ProductID" class="btn btn-secondary">ویرایش</a>
+                        <a asp-action="Index" 
+                           asp-controller="ProductImages" 
+                           asp-route-id="@item.ProductID"
+                           class="btn btn-info"
+                           target="_blank">مدیریت تصاویر</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductID" class="btn btn-danger">حذف</a>
+                        
+                        @if (item.ProductIsActive)
+                        {
+                            <a asp-action="SetActive" asp-route-id="@item.ProductID" asp-route-isactive="false" class="btn btn-success"><i class="fa-regular fa-circle-check"></i> غیرفعال کردن</a>
+                        }
+                        else
+                        {
+                            <a asp-action="SetActive" asp-route-id="@item.ProductID" asp-route-isactive="true" class="btn btn-success"> <i class="fa-solid fa-circle-check"></i> فعال کردن</a>
+
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

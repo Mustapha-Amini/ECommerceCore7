@@ -1,0 +1,17 @@
+﻿@model bool?
+
+@if (Model == null)
+{
+    <i class="fa-solid fa-circle-question fa-flip-horizontal fa-2x"></i>
+}
+else
+{
+    if (Model.Value)
+    {
+        <i class="fa-solid fa-circle-check text-danger fa-2x"></i>
+    }
+    else
+    {
+        <i class="fa-regular fa-circle-check text-danger fa-2x"></i>
+    }
+}

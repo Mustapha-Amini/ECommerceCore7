@@ -1,0 +1,116 @@
+﻿<!-- ...:::: Start Mobile Header Section:::... -->
+<div class="mobile-header-section d-block d-lg-none">
+    <!-- Start Mobile Header Wrapper -->
+    <div class="mobile-header-wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between align-items-center">
+                    <div class="mobile-header--left">
+                        <a asp-action="Index" asp-controller="Home" asp-area="" class="mobile-logo-link">
+                            <img src="@SiteGeneralSettings.GetSettings().LogoFilePath" asp-append-version="true" alt="" class="mobile-logo-img">
+                        </a>
+                    </div>
+                    <div class="mobile-header--right">
+                        <a href="#mobile-menu-offcanvas" class="mobile-menu offcanvas-toggle">
+                            <span class="mobile-menu-dash"></span>
+                            <span class="mobile-menu-dash"></span>
+                            <span class="mobile-menu-dash"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Mobile Header Wrapper -->
+</div>
+<!-- ...:::: Start Mobile Header Section:::... -->
+<!-- ...:::: Start Offcanvas Mobile Menu Section:::... -->
+<div id="mobile-menu-offcanvas" class="offcanvas offcanvas-leftside offcanvas-mobile-menu-section">
+    <!-- Start Offcanvas Header -->
+    <div class="offcanvas-header text-right">
+        <button class="offcanvas-close"><i class="fa fa-times"></i></button>
+    </div> <!-- End Offcanvas Header -->
+    <!-- Start Offcanvas Mobile Menu Wrapper -->
+    <div class="offcanvas-mobile-menu-wrapper">
+        <!-- Start Mobile Menu User Top -->
+        <div class="mobile-menu-top">
+            <span>به @SiteGeneralSettings.GetSettings().SiteName خوش آمدید!</span>
+            <!-- Start Header Top Menu -->
+            <ul class="mobile-menu-user-menu">
+                @*<li><a class="header-user-menu-link" href=""><i class="icon-repeat"></i>Compare (0)</a></li>
+                <li class="has-mobile-user-dropdown">
+                <a class="mobile-user-menu-link" href="">Setting</a>
+                <!-- Header Top Menu's Dropdown -->
+                <ul class="mobile-user-sub-menu">
+                <li><a href="">Checkout</a></li>
+                <li><a href="">My Account</a></li>
+                <li><a href="">Shopping Cart</a></li>
+                <li><a href="">Wishlist</a></li>
+                </ul>
+                </li>*@
+               
+                
+            </ul> 
+            <!-- End Header Top Menu -->
+        </div> 
+        <!-- End Mobile Menu User Top -->
+
+        <!-- Start Mobile Menu User Center -->
+        <div class="mobile-menu-center">
+            <!-- Start Header Action Icon -->
+            @if (User.Identity.IsAuthenticated)
+            {
+                <ul class="mobile-action-icon">
+                    <li class="mobile-action-icon-item">
+                        <a asp-action="Wishlist"
+                           asp-controller="Home"
+                           asp-area=""
+                           class="mobile-action-icon-link">
+                            <i class="icon-heart"></i>
+                            <span class="mobile-action-icon-item-count" id="mobile_wishlist_count">0</span>
+                        </a>
+                    </li>
+                    <li class="mobile-action-icon-item">
+                        <a asp-action="Cart" asp-controller="Home" asp-area="" class="mobile-action-icon-link">
+                            <i class="icon-shopping-cart"></i>
+                            <span class="mobile-action-icon-item-count" id="mobile_total_items_in_cart">0</span>
+                        </a>
+                    </li>
+                </ul>
+            }
+            <!-- End Header Action Icon -->
+        </div> 
+        <!-- End Mobile Menu User Center -->
+
+        <!-- Start Mobile Menu Bottom -->
+        <div class="mobile-menu-bottom">
+            <!-- Start Mobile Menu Nav -->
+            <div class="offcanvas-menu">
+                <ul>
+                    <li>
+                        <a asp-action="Index" asp-controller="Home" asp-area=""><span>صفحه اصلی</span></a>
+                    </li>
+                    @(await Component.InvokeAsync("ProductGroupsMenu", new { IsMobileMenu = true }))
+                    @(await Component.InvokeAsync("PageGroupsMenu", new { IsMobileMenu = true}))
+                    @(await Component.InvokeAsync("StaticPagesMenu", new { IsMobileMenu = true }))
+                    <partial name="_LoginPartial_Theme_Mobile" />
+                </ul>
+            </div> 
+            <!-- End Mobile Menu Nav -->
+            <!-- Mobile Manu Mail Address -->
+            @*<a class="mobile-menu-email icon-text-right" href="mailto:info@yourdomain.com"><i class="fa fa-envelope-o"> info@yourdomain.com</i></a>*@
+
+            <!-- Mobile Manu Social Link -->
+            @*<ul class="mobile-menu-social">
+            <li><a href="" class="facebook"><i class="fa fa-facebook"></i></a></li>
+            <li><a href="" class="twitter"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="" class="youtube"><i class="fa fa-youtube"></i></a></li>
+            <li><a href="" class="pinterest"><i class="fa fa-pinterest"></i></a></li>
+            <li><a href="" class="instagram"><i class="fa fa-instagram"></i></a></li>
+            </ul>*@
+        </div>
+        <!-- End Mobile Menu Bottom -->
+    </div> 
+    <!-- End Offcanvas Mobile Menu Wrapper -->
+</div>
+<!-- ...:::: End Offcanvas Mobile Menu Section:::... -->

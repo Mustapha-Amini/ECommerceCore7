@@ -1,0 +1,63 @@
+﻿@model ECommerceCore7.Models.Entities.Order
+@{
+    int RowNumber = 0;
+    ViewData["Title"] = "جزئیات سفارش خرید";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-10">
+            <h1>@ViewData["Title"]</h1>
+            <div>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.OrderDate)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.OrderDate)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.User.Fullname)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.User.Fullname)
+                    </dd>
+                </dl>
+                <table class="table table-responsive">
+                    <thead class="table-dark text-center">
+                    <th>ردیف</th>
+                    <th>نام کالا</th>
+                    <th>فی</th>
+                    <th>تعداد</th>
+                    <th>مبلغ</th>
+                    </thead>
+                    <tbody>
+                        @foreach (var row in Model.OrderDetails)
+                        {
+                            RowNumber++;
+                            <tr>
+                                <td class="text-center">@RowNumber</td>
+                                <td>@row.Product.ProductTitle</td>
+                                <td class="text-center">@row.Product.ProductPrice.ToString("#,0 ریال")</td>
+                                <td class="text-center">@row.ProductCount</td>
+                                <td class="text-center">@((row.ProductCount * row.Product.ProductPrice).ToString("#,0 ریال"))</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr class="table-info">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-center">جمع کل:</td>
+                            <td class="text-center">@Model.OrderDetails.Select(od => (od.ProductCount * od.Product.ProductPrice)).Sum().ToString("#,0 ریال")</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div>
+                <a asp-action="Index" class="btn btn-secondary">بازگشت به فهرست</a>
+            </div>
+        </div>
+    </div>
+</div>

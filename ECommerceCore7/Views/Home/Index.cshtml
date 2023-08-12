@@ -1,0 +1,8 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@(await Component.InvokeAsync("SliderImages_Homepage"))
+@(await Component.InvokeAsync("ProductGroupsListHorizontal"))
+@await Component.InvokeAsync("LatestPages",new { PageCount = 3 , GenerateForSideBar = false})
+@await Component.InvokeAsync("LatestProducts_Horizontal",new { ProductCount = 10})

@@ -1,0 +1,31 @@
+﻿@model List<ECommerceCore7.Models.ViewModels.TopUsersWithPurchasesViewModel>
+@{
+    ViewData["Title"] = "لیست پر خرید ترین مشتریان";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead class="table-dark text-light text-center">
+        <tr>
+            <th>نام کاربر</th>
+            <th>نام کامل</th>
+            <th>شماره موبایل</th>
+            <th>جمع خرید ها</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@(item.Fullname ?? "نامشخص")</td>
+                <td>@item.PhoneNumber</td>
+                <td class="text-center">@item.TotalPurchases.ToString("#,0 ریال")</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+

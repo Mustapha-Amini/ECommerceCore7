@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ECommerceCore7.Models.Entities.Order>
+@{
+    ViewBag.Title = "سفارشات خرید";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-10">
+            <h1>@ViewBag.Title</h1>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark text-center">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderID)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.User.Fullname)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.OrderDate)
+                        </th>
+                        <th>دستورات</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OrderID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.User.Fullname)
+                            </td>
+                            <td>
+                                @item.OrderDate.ToString("dddd d MMMM yyyy ساعت HH:mm")
+                            </td>
+                            <td>
+                                <a asp-action="OrderDetails" asp-route-id="@item.OrderID" class="btn btn-info">جزئیات</a>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

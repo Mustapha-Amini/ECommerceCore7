@@ -1,0 +1,40 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<ProductGroup>
+
+<!-- ...:::: Start Product Catagory Section:::... -->
+<div class="product-catagory-section section-top-gap-100">
+    <!-- Start Section Content -->
+    <div class="section-content-gap">
+        <div class="container">
+            <div class="row">
+                <div class="section-content">
+                    <h3 class="section-title">گروه های کالاها</h3>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Section Content -->
+    <!-- Start Catagory Wrapper -->
+    <div class="product-catagory-wrapper">
+        <div class="container">
+            <div class="row">
+
+                @foreach(var item in Model)
+                {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <!-- Start Product Catagory Single -->
+                    <a asp-controller="Home" asp-action="ProductsByGroup" asp-route-id="@item.ProductGroupID" class="product-catagory-single">
+                        <div class="product-catagory-img">
+                            <img src="~/Uploads/Images/ProductGroups/@item.ProductGroupImageFilename" alt="">
+                        </div>
+                        <div class="product-catagory-content">
+                            <h5 class="product-catagory-title">@item.ProductGroupTitle</h5>
+                            <span class="product-catagory-items">@item.Products.Count کالا</span>
+                        </div>
+                    </a> <!-- End Product Catagory Single -->
+                </div>
+                }
+
+            </div>
+        </div>
+    </div> <!-- End Catagory Wrapper -->
+</div> <!-- ...:::: End Product Catagory Section:::... -->

@@ -1,0 +1,49 @@
+﻿@using ECommerceCore7.Models.Entities
+@model List<Page>
+
+@{
+    var pagesToShowInFooter =
+        Model.Where(p => p.PageShowLinkInFooter && p.PageEnabled).ToList();
+    int counter = 4;
+    int maxLiInEachColumn = 4;
+}
+
+@if (pagesToShowInFooter != null && pagesToShowInFooter.Any())
+{
+    var groups =
+        pagesToShowInFooter.Select(p => p.PageGroup).DistinctBy(pg => pg.PageGroupID);
+    foreach (var group in groups)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="footer-widget footer-widget-menu">
+                <h3 class="footer-widget-title">
+                    @*<i class="@group.PageGroupIcon"></i>*@ @group.PageGroupTitle
+                </h3>
+                <div class="footer-menu">
+                    @{
+                        var pagesInThisGroup =
+                        pagesToShowInFooter.Where(p => p.PageGroupID == group.PageGroupID).ToList();
+                    }
+                    <ul class="footer-menu-nav">
+                        @foreach (var currentPage in pagesInThisGroup)
+                        {
+                            <li>
+                                <a href="@(Url.Content("~/")+currentPage.PageRoute)">@currentPage.PageTitle</a>
+                            </li>
+                            counter++;
+                        }
+                        @*<add-element-if condition="@(counter % maxLiInEachColumn == 0)" element="</ul>"/>*@
+                    </ul>
+                    @*<ul class="footer-menu-nav">
+            <li><a href="">موارد قانونی</a></li>
+            <li><a href="">پرداخت امن</a></li>
+            <li><a href="">نقشه سایت</a></li>
+            <li><a href="my-account.html">حساب کاربری من</a></li>
+            </ul>*@
+
+                </div>
+            </div>
+        </div>
+    }
+}
+

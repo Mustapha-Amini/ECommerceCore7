@@ -1,0 +1,76 @@
+﻿@model SiteGeneralSettings
+
+@{
+    ViewData["Title"] = $"{ViewData["Title"]} {ViewData["ControllerSingularTitle"]}";
+}
+<h1><i class='@ViewData["Icon"]'></i> @ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="SiteName" class="control-label"></label>
+                <input asp-for="SiteName" class="form-control" />
+                <span asp-validation-for="SiteName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SiteSlogan" class="control-label"></label>
+                <textarea asp-for="SiteSlogan" class="form-control"></textarea>
+                <span asp-validation-for="SiteSlogan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoFilePath" class="control-label"></label>
+                <input asp-for="LogoFilePath" class="form-control ltr" />
+                <span asp-validation-for="LogoFilePath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SupportPhoneNumber" class="control-label"></label>
+                <input asp-for="SupportPhoneNumber" class="form-control ltr" />
+                <span asp-validation-for="SupportPhoneNumber" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ParsGreenApiToken" class="control-label"></label>
+                <input asp-for="ParsGreenApiToken" class="form-control ltr" />
+                <span asp-validation-for="ParsGreenApiToken" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ParsGreenSendFromNumber" class="control-label"></label>
+                <input asp-for="ParsGreenSendFromNumber" class="form-control ltr" />
+                <span asp-validation-for="ParsGreenSendFromNumber" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="ZarinpalMerchantID" class="control-label"></label>
+                <input asp-for="ZarinpalMerchantID" class="form-control ltr" />
+                <span asp-validation-for="ZarinpalMerchantID" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="ZarinpalSandBoxIsActive" /> @Html.DisplayNameFor(model => model.ZarinpalSandBoxIsActive)
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="HomePageMetaTags" class="control-label"></label>
+                <input asp-for="HomePageMetaTags" class="form-control" />
+                <span asp-validation-for="HomePageMetaTags" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="HomePageDescription" class="control-label"></label>
+                <textarea asp-for="HomePageDescription" class="form-control"></textarea>
+                <span asp-validation-for="HomePageDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">ثبت</button>
+            </div>
+        </form>
+    </div>
+</div>
+
